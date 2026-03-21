@@ -12,6 +12,7 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
   const [teamAPlayers, setTeamAPlayers] = useState<string[]>([""]);
   const [teamBPlayers, setTeamBPlayers] = useState<string[]>([""]);
   const [roundTime, setRoundTime] = useState<30 | 60 | 90>(30);
+  const [wordsPerTurn, setWordsPerTurn] = useState<5 | 6>(5);
   const [totalRounds, setTotalRounds] = useState(4);
 
   const addPlayer = (team: "a" | "b") => {
