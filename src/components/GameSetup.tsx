@@ -227,6 +227,7 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
                   </button>
                 ))}
               </div>
+            </div>
           </div>
 
           {/* 18+ Toggle */}
