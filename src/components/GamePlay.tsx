@@ -108,16 +108,18 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
           <p className="text-center text-muted-foreground text-sm mb-3">
             <span className={isTeamA ? "text-team-a" : "text-team-b"}>{guessedCount}</span> / {words.length} guessed
           </p>
-          <button
-            onClick={handleDone}
-            className={`w-full py-4 rounded-lg font-display font-bold text-lg transition-all active:scale-95 shadow-lg ${
-              isTeamA
-                ? "bg-team-a text-team-a-foreground shadow-team-a/30"
-                : "bg-team-b text-team-b-foreground shadow-team-b/30"
-            }`}
-          >
-            Done
-          </button>
+          {timedOut && !finished && (
+            <button
+              onClick={handleDone}
+              className={`w-full py-4 rounded-lg font-display font-bold text-lg transition-all active:scale-95 shadow-lg ${
+                isTeamA
+                  ? "bg-team-a text-team-a-foreground shadow-team-a/30"
+                  : "bg-team-b text-team-b-foreground shadow-team-b/30"
+              }`}
+            >
+              Confirm & Continue
+            </button>
+          )}
         </div>
       </div>
     </div>
