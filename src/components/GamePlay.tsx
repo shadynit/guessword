@@ -45,7 +45,9 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
     if (timedOut) playBuzzer();
   }, [timedOut]);
   const toggleWord = (index: number) => {
-    if (finished || !splashDismissed) return;
+    if (finished) return;
+    // During gameplay: always allow. After timeout: only after splash dismissed.
+    if (timedOut && !splashDismissed) return;
     setWords((prev) =>
       prev.map((w, i) => (i === index ? { ...w, guessed: !w.guessed } : w))
     );
