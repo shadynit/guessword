@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { GameState, DEFAULT_GAME_STATE } from "@/lib/gameTypes";
-import { Plus, X, Users, Timer, Zap } from "lucide-react";
+import { Plus, X, Users, Timer, Zap, ShieldAlert } from "lucide-react";
 
 interface GameSetupProps {
   onStartGame: (state: GameState) => void;
