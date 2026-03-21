@@ -37,13 +37,7 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
     return () => clearInterval(timerRef.current);
   }, []);
 
-  useEffect(() => {
-    if (timeLeft === 0 && !finished) {
-      setFinished(true);
-      const score = words.filter((w) => w.guessed).length;
-      onTurnEnd(score);
-    }
-  }, [timeLeft, finished, words, onTurnEnd]);
+  const timedOut = timeLeft === 0;
 
   const toggleWord = (index: number) => {
     if (finished) return;
@@ -53,9 +47,8 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
   };
 
   const handleDone = () => {
-    if (finished) return;
+    if (!timedOut || finished) return;
     setFinished(true);
-    clearInterval(timerRef.current);
     const score = words.filter((w) => w.guessed).length;
     onTurnEnd(score);
   };
@@ -87,7 +80,7 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
         </div>
 
         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-4">
-          Tap words your team guesses
+          {timedOut && !finished ? "⏰ Time's up! Review & confirm selections" : "Tap words your team guesses"}
         </p>
 
         {/* Word list */}
@@ -115,16 +108,18 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
           <p className="text-center text-muted-foreground text-sm mb-3">
             <span className={isTeamA ? "text-team-a" : "text-team-b"}>{guessedCount}</span> / {words.length} guessed
           </p>
-          <button
-            onClick={handleDone}
-            className={`w-full py-4 rounded-lg font-display font-bold text-lg transition-all active:scale-95 shadow-lg ${
-              isTeamA
-                ? "bg-team-a text-team-a-foreground shadow-team-a/30"
-                : "bg-team-b text-team-b-foreground shadow-team-b/30"
-            }`}
-          >
-            Done
-          </button>
+          {timedOut && !finished && (
+            <button
+              onClick={handleDone}
+              className={`w-full py-4 rounded-lg font-display font-bold text-lg transition-all active:scale-95 shadow-lg ${
+                isTeamA
+                  ? "bg-team-a text-team-a-foreground shadow-team-a/30"
+                  : "bg-team-b text-team-b-foreground shadow-team-b/30"
+              }`}
+            >
+              Confirm & Continue
+            </button>
+          )}
         </div>
       </div>
     </div>
