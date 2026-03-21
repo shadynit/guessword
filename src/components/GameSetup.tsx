@@ -226,6 +226,22 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
                     {r}
                   </button>
                 ))}
+                <input
+                  type="number"
+                  min={1}
+                  max={50}
+                  value={[2, 4, 6].includes(totalRounds) ? "" : totalRounds}
+                  placeholder="Custom"
+                  onChange={(e) => {
+                    const v = parseInt(e.target.value);
+                    if (v >= 1 && v <= 50) setTotalRounds(v);
+                  }}
+                  className={`flex-1 py-2 rounded-md text-sm font-semibold text-center outline-none transition-all ${
+                    ![2, 4, 6].includes(totalRounds)
+                      ? "bg-accent text-accent-foreground shadow-lg shadow-accent/25"
+                      : "bg-muted text-muted-foreground hover:text-foreground"
+                  } placeholder:text-muted-foreground`}
+                />
               </div>
             </div>
           </div>
