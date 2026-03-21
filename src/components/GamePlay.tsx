@@ -60,7 +60,32 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
   const guessedCount = words.filter((w) => w.guessed).length;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-between px-4 py-6 safe-area-inset">
+    <div className="min-h-screen flex flex-col items-center justify-between px-4 py-6 safe-area-inset relative">
+      {/* Time's Up Splash Overlay */}
+      {timedOut && !splashDismissed && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/95 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="text-center animate-in zoom-in-95 duration-500">
+            <div className={`w-28 h-28 rounded-full mx-auto mb-6 flex items-center justify-center ${
+              isTeamA ? "bg-team-a/20" : "bg-team-b/20"
+            }`}>
+              <span className="text-5xl">⏰</span>
+            </div>
+            <h2 className="text-4xl font-display font-bold text-foreground mb-2">Time's Up!</h2>
+            <p className="text-muted-foreground mb-8 text-lg">Stop guessing! Review the words now.</p>
+            <button
+              onClick={() => setSplashDismissed(true)}
+              className={`px-8 py-4 rounded-lg font-display font-bold text-lg transition-all active:scale-95 shadow-lg ${
+                isTeamA
+                  ? "bg-team-a text-team-a-foreground shadow-team-a/30"
+                  : "bg-team-b text-team-b-foreground shadow-team-b/30"
+              }`}
+            >
+              Review Selections
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="w-full max-w-sm flex flex-col items-center flex-1">
         {/* Timer */}
         <div className="relative w-24 h-24 mx-auto mb-4 shrink-0">
@@ -81,7 +106,7 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
         </div>
 
         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-4">
-          {timedOut && !finished ? "⏰ Time's up! Review & confirm selections" : "Tap words your team guesses"}
+          {timedOut && splashDismissed && !finished ? "⏰ Review & confirm selections" : "Tap words your team guesses"}
         </p>
 
         {/* Word list */}
@@ -90,6 +115,7 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
             <button
               key={i}
               onClick={() => toggleWord(i)}
+              disabled={!splashDismissed && timedOut}
               className={`w-full py-4 px-5 rounded-xl text-xl font-display font-bold transition-all active:scale-[0.97] border-2 text-left ${
                 w.guessed
                   ? "bg-green-500/15 border-green-500/50 text-green-400"
@@ -109,7 +135,7 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
           <p className="text-center text-muted-foreground text-sm mb-3">
             <span className={isTeamA ? "text-team-a" : "text-team-b"}>{guessedCount}</span> / {words.length} guessed
           </p>
-          {timedOut && !finished && (
+          {timedOut && splashDismissed && !finished && (
             <button
               onClick={handleDone}
               className={`w-full py-4 rounded-lg font-display font-bold text-lg transition-all active:scale-95 shadow-lg ${
