@@ -14,6 +14,7 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
   const [roundTime, setRoundTime] = useState<30 | 60 | 90>(30);
   const [wordsPerTurn, setWordsPerTurn] = useState<5 | 6>(5);
   const [totalRounds, setTotalRounds] = useState(4);
+  const [adultMode, setAdultMode] = useState(false);
 
   const addPlayer = (team: "a" | "b") => {
     if (team === "a") setTeamAPlayers([...teamAPlayers, ""]);
