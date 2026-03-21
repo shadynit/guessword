@@ -47,9 +47,8 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
   };
 
   const handleDone = () => {
-    if (finished) return;
+    if (!timedOut || finished) return;
     setFinished(true);
-    clearInterval(timerRef.current);
     const score = words.filter((w) => w.guessed).length;
     onTurnEnd(score);
   };
