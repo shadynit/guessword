@@ -187,6 +187,27 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-3">
                 <Zap className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium">Words per turn</span>
+              </div>
+              <div className="flex gap-2">
+                {([5, 6] as const).map((w) => (
+                  <button
+                    key={w}
+                    onClick={() => setWordsPerTurn(w)}
+                    className={`flex-1 py-2 rounded-md text-sm font-semibold transition-all active:scale-95 ${
+                      wordsPerTurn === w
+                        ? "bg-accent text-accent-foreground shadow-lg shadow-accent/25"
+                        : "bg-muted text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {w}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-3">
+                <Zap className="w-4 h-4 text-accent" />
                 <span className="text-sm font-medium">Total rounds</span>
               </div>
               <div className="flex gap-2">
