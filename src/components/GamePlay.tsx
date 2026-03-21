@@ -41,6 +41,9 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
 
   const timedOut = timeLeft === 0;
 
+  useEffect(() => {
+    if (timedOut) playBuzzer();
+  }, [timedOut]);
   const toggleWord = (index: number) => {
     if (finished || !splashDismissed) return;
     setWords((prev) =>
