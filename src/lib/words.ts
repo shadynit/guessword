@@ -1,123 +1,105 @@
 export const WORD_BANK: string[] = [
-  // Classic funny
-  "Snoring", "Belly flop", "Twerk", "Hiccups", "Burrito", "Selfie",
-  "Moonwalk", "Pickles", "Bubble wrap", "Sneeze", "Toenail", "Mullet",
-  "Fart", "Waddle", "Bellybutton", "Chicken dance", "Booger", "Drool",
-  "Armpit", "Yodel", "Pajamas", "Flamingo", "Tickle", "Wedgie",
-  "Spaghetti", "Zombie walk", "Piggyback", "Tongue twister", "Noodle arms",
-  "Banana peel", "Snot", "Potty", "Goofy", "Wobbly", "Jiggly",
-  "Funky", "Wacky", "Silly putty", "Rubber duck", "Clown nose",
-  "Oink", "Squawk", "Gobble", "Moo", "Quack",
-  "Cannonball", "Face plant", "Brain freeze", "Double chin", "Jazz hands",
-  "Air guitar", "Karate chop", "Belly laugh", "Eyebrow wiggle", "Knee slap",
-  "Robot dance", "Chicken wing", "Penguin walk", "Crab walk", "Bear hug",
-  "Pillow fight", "Food coma", "Couch potato", "Snooze button", "Bubblegum",
-  "Unicorn", "Disco ball", "Toilet paper", "Whoopee cushion", "Underwear",
-  "Mustache", "Polka dots", "Flip flop", "Tutu", "Suspenders",
-  "Belly dancer", "Kangaroo hop", "Gorilla chest", "Caterpillar", "Jellyfish",
-  "Pogo stick", "Trampoline", "Roller coaster", "Bumper cars", "Carousel",
-  "Hot dog", "Marshmallow", "Popcorn", "Cotton candy", "Gummy bear",
-  "Somersault", "Cartwheel", "Limbo", "Hopscotch", "Leapfrog",
-  "Kazoo", "Tambourine", "Cowbell", "Bagpipes", "Ukulele",
-  "Pirate", "Ninja", "Werewolf", "Mummy", "Sasquatch",
-  "Hiccup cure", "Dad joke", "Plot twist", "Awkward silence", "Cringe",
-  "Butterfingers", "Slapstick", "Goofball", "Shenanigans", "Hullabaloo",
-  "Kerfuffle", "Bamboozle", "Razzmatazz", "Gobbledygook", "Thingamajig",
-  "Doohickey", "Whatchamacallit", "Hodgepodge", "Rigmarole", "Brouhaha",
+  // Funny & silly
+  "Snoring", "Twerking", "Hiccups", "Burrito", "Selfie", "Moonwalk",
+  "Pickles", "Sneeze", "Mullet", "Waddle", "Booger", "Drool",
+  "Yodel", "Pajamas", "Flamingo", "Tickle", "Wedgie", "Spaghetti",
+  "Potty", "Goofy", "Wobbly", "Jiggly", "Funky", "Wacky",
+  "Oink", "Squawk", "Gobble", "Quack", "Moo",
+  "Bubblegum", "Unicorn", "Underwear", "Mustache", "Tutu",
+  "Suspenders", "Caterpillar", "Jellyfish", "Trampoline", "Carousel",
+  "Marshmallow", "Popcorn", "Somersault", "Cartwheel", "Limbo",
+  "Hopscotch", "Leapfrog", "Kazoo", "Tambourine", "Cowbell",
+  "Bagpipes", "Ukulele", "Pirate", "Ninja", "Werewolf",
+  "Sasquatch", "Bamboozle", "Shenanigans", "Hullabaloo", "Kerfuffle",
+  "Razzmatazz", "Gobbledygook", "Thingamajig", "Doohickey", "Brouhaha",
+  "Rigmarole", "Hodgepodge", "Slapstick", "Goofball", "Cringe",
+  "Butterfingers", "Dingleberry", "Giggle", "Snicker", "Chortle",
+  "Guffaw", "Cackle", "Bonkers", "Bananas", "Weirdo",
 
-  // Animals & creatures
-  "Platypus", "Dodo bird", "Blobfish", "Porcupine", "Sloth",
-  "Armadillo", "Chipmunk", "Walrus", "Chameleon", "Pelican",
-  "Hedgehog", "Warthog", "Baboon", "Iguana", "Llama",
-  "Narwhal", "Alpaca", "Pangolin", "Manatee", "Toucan",
-  "Lemur", "Gecko", "Stingray", "Hyena", "Ostrich",
-  "Seahorse", "Tarantula", "Poodle", "Bullfrog", "Hamster",
+  // Animals
+  "Platypus", "Blobfish", "Porcupine", "Sloth", "Armadillo",
+  "Chipmunk", "Walrus", "Chameleon", "Pelican", "Hedgehog",
+  "Warthog", "Baboon", "Iguana", "Llama", "Narwhal",
+  "Alpaca", "Pangolin", "Manatee", "Toucan", "Lemur",
+  "Gecko", "Stingray", "Hyena", "Ostrich", "Seahorse",
+  "Tarantula", "Poodle", "Bullfrog", "Hamster", "Dodo",
+  "Cheetah", "Vulture", "Mongoose", "Piranha", "Macaw",
 
-  // Food & drink
+  // Food
   "Waffle", "Meatball", "Taco", "Pretzel", "Pancake",
-  "Milkshake", "Pickle juice", "Cheese puff", "Nacho", "Jelly bean",
-  "Dumpling", "Churro", "Donut hole", "Fish stick", "Corndog",
-  "Pudding", "Muffin top", "Breadstick", "Fudge", "Guacamole",
-  "Gravy boat", "Fondue", "Biscuit", "Crouton", "Sardine",
-  "Lasagna", "Cupcake", "French toast", "Egg roll", "Smoothie",
+  "Milkshake", "Nacho", "Dumpling", "Churro", "Corndog",
+  "Pudding", "Fudge", "Guacamole", "Fondue", "Biscuit",
+  "Crouton", "Sardine", "Lasagna", "Cupcake", "Smoothie",
+  "Noodle", "Burp", "Muffin", "Kebab", "Gravy",
+  "Pickle", "Salami", "Sausage", "Wiener", "Schnitzel",
 
   // Actions & movements
-  "Sleepwalk", "Belly slide", "Tiptoeing", "Headstand", "Body slam",
-  "Dabbing", "Hula hoop", "Breakdance", "Worm dance", "Jumping jack",
-  "Handshake", "Fist bump", "Stumble", "Yawn", "Twirl",
-  "Cancan", "Wiggle", "Crawl", "Shimmy", "Gallop",
-  "Floss dance", "Backflip", "Belly bump", "High kick", "Toe touch",
-  "Chest bump", "Headbang", "Curtsy", "Lunge", "Pirouette",
+  "Stumble", "Yawn", "Twirl", "Wiggle", "Shimmy",
+  "Gallop", "Crawl", "Headbang", "Curtsy", "Pirouette",
+  "Dabbing", "Breakdance", "Tiptoeing", "Sleepwalk", "Gargle",
+  "Sniffle", "Belch", "Whistle", "Hiccup", "Giggling",
+  "Winking", "Flexing", "Squatting", "Flirting", "Grinding",
+  "Twerking", "Spanking", "Stripping", "Moaning", "Thrusting",
 
-  // Objects & things
-  "Plunger", "Lava lamp", "Bean bag", "Bubble bath", "Cuckoo clock",
-  "Snow globe", "Yo-yo", "Boomerang", "Slingshot", "Flyswatter",
-  "Fanny pack", "Boombox", "Skateboard", "Hammock", "Lawn mower",
-  "Pinata", "Jack in box", "Megaphone", "Foam finger", "Snorkel",
-  "Chainsaw", "Fire hydrant", "Mailbox", "Mannequin", "Scarecrow",
-  "Treadmill", "Typewriter", "Telescope", "Stopwatch", "Compass",
+  // Objects
+  "Plunger", "Boomerang", "Flyswatter", "Boombox", "Skateboard",
+  "Hammock", "Pinata", "Megaphone", "Snorkel", "Scarecrow",
+  "Treadmill", "Typewriter", "Telescope", "Compass", "Mannequin",
+  "Lollipop", "Chainsaw", "Thermometer", "Trampoline", "Whistle",
+  "Condom", "Vibrator", "Handcuffs", "Whip", "Dildo",
 
-  // Body & appearance
-  "Unibrow", "Pot belly", "Love handles", "Dimples", "Freckles",
-  "Buck teeth", "Bald spot", "Sideburns", "Goatee", "Chest hair",
-  "Beer belly", "Six pack", "Tan line", "Bed head", "Split ends",
-  "Crow feet", "Muffin top", "Thunder thighs", "Funny bone", "Kneecap",
-  "Earlobe", "Nostril", "Pinky toe", "Elbow", "Collarbone",
+  // Body related
+  "Dimples", "Freckles", "Goatee", "Nostril", "Kneecap",
+  "Earlobe", "Collarbone", "Elbow", "Armpit", "Bellybutton",
+  "Toenail", "Nipple", "Booty", "Cleavage", "Crotch",
+  "Boner", "Bulge", "Camel-toe", "Hickey", "Moustache",
 
-  // Situations & expressions
-  "Walk of shame", "Stage fright", "Road rage", "Photo bomb", "Mic drop",
-  "Brainwash", "Speed dating", "Blind date", "Ice breaker", "Prank call",
-  "Power nap", "Cat nap", "Walk the plank", "Pop quiz", "Arm wrestle",
-  "Staring contest", "Thumb war", "Piggy bank", "Gold digger", "Party pooper",
-  "Buzzkill", "Drama queen", "Couch surf", "Crowd surf", "Bar crawl",
+  // Adult & cheeky 🔥
+  "Orgasm", "Foreplay", "Kinky", "Naughty", "Quickie",
+  "Bondage", "Dominatrix", "Cougar", "MILF", "Stripper",
+  "Escort", "Playboy", "Hooters", "Boobies", "Horny",
+  "Seductive", "Aroused", "Threesome", "Fetish", "Tease",
+  "Spank", "Lingerie", "Thong", "Corset", "Stilettos",
+  "Striptease", "Lapdance", "Skinny-dip", "Commando", "Peeping",
+  "Flashing", "Groping", "Snogging", "Hanky-panky", "Booty-call",
 
-  // Silly compound words
-  "Buttercup", "Jellyroll", "Flapjack", "Oddball", "Weirdo",
-  "Dingbat", "Nincompoop", "Boneheaded", "Knucklehead", "Scatterbrain",
-  "Chatterbox", "Blockhead", "Meathead", "Numbskull", "Birdbrain",
-  "Lollygag", "Flibbertigibbet", "Riffraff", "Hobnob", "Willy-nilly",
-  "Topsy-turvy", "Wishy-washy", "Namby-pamby", "Hocus-pocus", "Mumbo jumbo",
+  // Funny situations
+  "Photobomb", "Ghosting", "Catfishing", "Clickbait", "Facepalm",
+  "Deadpan", "Buzzkill", "Cringe", "FOMO", "Hangover",
+  "Streaking", "Skinny-dipping", "Mansplaining", "Manspreading", "Eavesdropping",
+  "Sleeptalking", "Snoring", "Drooling", "Farting", "Queefing",
 
-  // Pop culture & trends
-  "Binge watch", "FOMO", "Photobomb", "Ghosting", "Catfishing",
-  "Meme lord", "Hashtag", "Vlog", "Unboxing", "Livestream",
-  "Cosplay", "Fan fiction", "Rage quit", "Clickbait", "Auto-tune",
-  "Facepalm", "Side eye", "Eye roll", "Slow clap", "Standing ovation",
-  "Air quotes", "Spit take", "Deadpan", "Double take", "Plot armor",
+  // Sounds
+  "Rumble", "Sizzle", "Splat", "Thud", "Whoosh",
+  "Zing", "Clang", "Bonk", "Boing", "Crunch",
 
-  // Nature & weather
-  "Avalanche", "Quicksand", "Tumbleweed", "Mudslide", "Hailstorm",
-  "Whirlpool", "Sandcastle", "Sunburn", "Frostbite", "Lightning bolt",
-  "Earthquake", "Volcano", "Tsunami", "Tornado", "Blizzard",
-
-  // Sounds & noises
-  "Belch", "Hiccup", "Whistle", "Gargle", "Sniffle",
-  "Cackle", "Snicker", "Chortle", "Guffaw", "Giggle",
-  "Rumble", "Sizzle", "Crunch", "Splat", "Thud",
-  "Whoosh", "Zing", "Clang", "Bonk", "Boing",
-
-  // Occupations & characters
+  // Characters & types
   "Mime", "Juggler", "Magician", "Clown", "Acrobat",
   "Cowboy", "Gladiator", "Viking", "Caveman", "Astronaut",
-  "Lumberjack", "Sumo wrestler", "Bullfighter", "Snake charmer", "Ventriloquist",
+  "Lumberjack", "Ventriloquist", "Gigolo", "Playmate", "Hunk",
 
-  // Sports & games
-  "Dodgeball", "Belly flop dive", "Tug of war", "Musical chairs", "Simon says",
-  "Red rover", "Hide and seek", "Duck duck goose", "Marco Polo", "Tag",
-  "Thumb wrestling", "Foosball", "Ping pong", "Bowling", "Archery",
-
-  // Clothing & accessories
+  // Clothing
   "Onesie", "Crocs", "Sombrero", "Monocle", "Cape",
-  "Lederhosen", "Speedo", "Hawaiian shirt", "Beanie", "Bow tie",
-  "Overalls", "Bell bottoms", "Platform shoes", "Beret", "Top hat",
+  "Speedo", "Beanie", "Overalls", "Beret", "Mankini",
+  "G-string", "Bikini", "Boxers", "Corset", "Fishnet",
 
-  // Miscellaneous funny
-  "Brain fart", "Snail mail", "Monkey business", "Horse play", "Goose chase",
-  "Cold turkey", "Cowabunga", "Bazinga", "Geronimo", "Eureka",
-  "Abracadabra", "Presto", "Voila", "Alakazam", "Shazam",
-  "Hulk smash", "Belly buster", "Party animal", "Night owl", "Early bird",
-  "Copycat", "Scaredy cat", "Cool beans", "Easy peasy", "Okey dokey",
-  "Holy moly", "Hanky panky", "Roly poly", "Loosey goosey", "Super duper",
+  // Exclamations & slang
+  "Bazinga", "Geronimo", "Eureka", "Abracadabra", "Shazam",
+  "Cowabunga", "Yikes", "Oopsie", "Dammit", "Bollocks",
+  "Bloody", "Wanker", "Tosser", "Knackered", "Cheeky",
+  "Dodgy", "Snog", "Shag", "Bonk", "Randy",
+
+  // Random hilarious
+  "Nincompoop", "Dingbat", "Knucklehead", "Numbskull", "Birdbrain",
+  "Scatterbrain", "Blockhead", "Meathead", "Lollygag", "Wishy-washy",
+  "Topsy-turvy", "Hocus-pocus", "Dingleberry", "Roly-poly", "Loosey-goosey",
+  "Tiddlywinks", "Cockamamie", "Balderdash", "Poppycock", "Malarkey",
+  "Flimflam", "Hoopla", "Ruckus", "Tomfoolery", "Buffoonery",
+  "Canoodle", "Schmooze", "Snazzy", "Swanky", "Saucy",
+  "Bootylicious", "Smooching", "Noogie", "Wedgie", "Nuggets",
+  "Dumbbell", "Wobbliest", "Squishiest", "Gooch", "Tiddies",
+  "Dongle", "Knob", "Jugs", "Melons", "Rump",
+  "Pecker", "Weenie", "Schlong", "Dangly", "Wobbly",
 ];
 
 let usedIndices = new Set<number>();
