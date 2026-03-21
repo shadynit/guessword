@@ -37,13 +37,7 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
     return () => clearInterval(timerRef.current);
   }, []);
 
-  useEffect(() => {
-    if (timeLeft === 0 && !finished) {
-      setFinished(true);
-      const score = words.filter((w) => w.guessed).length;
-      onTurnEnd(score);
-    }
-  }, [timeLeft, finished, words, onTurnEnd]);
+  const timedOut = timeLeft === 0;
 
   const toggleWord = (index: number) => {
     if (finished) return;
