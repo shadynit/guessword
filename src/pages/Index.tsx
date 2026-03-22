@@ -106,7 +106,7 @@ const Index = () => {
     case "ready":
       return <ReadyScreen game={game} onStart={handleStartTurn} />;
     case "playing":
-      return <GamePlay key={`${game.currentTeamIndex}-${game.currentPlayerIndex}-${game.currentRound}`} game={game} onTurnEnd={handleTurnEnd} />;
+      return <GamePlay key={`${game.currentTeamIndex}-${game.currentPlayerIndex}-${game.currentRound}`} game={game} onTurnEnd={handleTurnEnd} onNewGame={handlePlayAgain} />;
     case "turnEnd":
       return <TurnEndScreen game={game} lastScore={lastScore} onNext={handleNextTurn} />;
     case "gameOver":
