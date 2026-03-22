@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { GameState, DEFAULT_GAME_STATE } from "@/lib/gameTypes";
-import { Plus, X, Users, Timer, Zap, ShieldAlert } from "lucide-react";
+import { Plus, X, Users, Timer, Zap, ShieldAlert, BookOpen } from "lucide-react";
 
 interface GameSetupProps {
   onStartGame: (state: GameState) => void;
@@ -78,6 +78,17 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
           </h1>
           <p className="text-muted-foreground text-lg">
             Describe the word. Don't say it. Beat the clock.
+          </p>
+        </div>
+
+        {/* Game Instructions */}
+        <div className="bg-card rounded-lg p-5 border border-border mb-8">
+          <div className="flex items-center gap-2 mb-3">
+            <BookOpen className="w-5 h-5 text-primary" />
+            <span className="text-lg font-display font-semibold">How to Play</span>
+          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            The goal of the game is to explain as many words as possible within 30 seconds or a defined time and have your teammates guess the words. You are not allowed to use parts of the word or a translation in a different language. You get a point for every correct word.
           </p>
         </div>
 

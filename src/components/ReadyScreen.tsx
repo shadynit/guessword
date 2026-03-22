@@ -1,5 +1,5 @@
 import { GameState } from "@/lib/gameTypes";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, BookOpen } from "lucide-react";
 
 interface ReadyScreenProps {
   game: GameState;
@@ -39,7 +39,7 @@ export default function ReadyScreen({ game, onStart }: ReadyScreenProps) {
           </div>
           <div className="flex items-start gap-3">
             <EyeOff className="w-5 h-5 text-destructive mt-0.5 shrink-0" />
-            <p className="text-sm">You <strong>cannot</strong> say the word, its synonyms, or its opposite</p>
+            <p className="text-sm">You are <strong>not allowed</strong> to use parts of the word or a translation in a different language. You get a point for every correct word.</p>
           </div>
         </div>
 

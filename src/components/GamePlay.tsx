@@ -2,6 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import { getRandomWord } from "@/lib/words";
 import { playBuzzer } from "@/lib/buzzer";
 import { GameState } from "@/lib/gameTypes";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface GamePlayProps {
   game: GameState;
@@ -24,6 +34,7 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
   );
   const [finished, setFinished] = useState(false);
   const [splashDismissed, setSplashDismissed] = useState(false);
+  const [showNewGameConfirm, setShowNewGameConfirm] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
   const isTeamA = game.currentTeamIndex === 0;
 
@@ -100,7 +111,7 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
       <div className="w-full max-w-sm flex flex-col items-center flex-1 min-h-0">
         {/* New Game button */}
         <div className="w-full flex justify-end mb-1 shrink-0">
-          <button onClick={onNewGame} className="text-xs text-muted-foreground underline">New Game</button>
+          <button onClick={() => setShowNewGameConfirm(true)} className="text-xs text-muted-foreground underline">New Game</button>
         </div>
 
         {/* Timer */}
@@ -165,6 +176,21 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
           )}
         </div>
       </div>
+
+      <AlertDialog open={showNewGameConfirm} onOpenChange={setShowNewGameConfirm}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Start a New Game?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will reset all scores and progress. Are you sure you want to start over?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={onNewGame}>Yes, Reset</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
