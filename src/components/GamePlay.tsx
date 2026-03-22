@@ -111,7 +111,7 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
               className="transition-all duration-1000 linear"
             />
           </svg>
-          <span className={`absolute inset-0 flex items-center justify-center text-xl font-display font-bold ${isUrgent ? "text-destructive animate-countdown-pulse" : ""}`}>
+          <button onClick={onNewGame} className="absolute top-3 right-3 text-xs text-muted-foreground underline">New Game</button>
             {timeLeft}
           </span>
         </div>
