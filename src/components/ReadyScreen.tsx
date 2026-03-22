@@ -1,5 +1,5 @@
 import { GameState } from "@/lib/gameTypes";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, BookOpen } from "lucide-react";
 
 interface ReadyScreenProps {
   game: GameState;
