@@ -98,6 +98,11 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
       )}
 
       <div className="w-full max-w-sm flex flex-col items-center flex-1 min-h-0">
+        {/* New Game button */}
+        <div className="w-full flex justify-end mb-1 shrink-0">
+          <button onClick={onNewGame} className="text-xs text-muted-foreground underline">New Game</button>
+        </div>
+
         {/* Timer */}
         <div className="relative w-20 h-20 mx-auto mb-2 shrink-0">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
@@ -111,13 +116,13 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
               className="transition-all duration-1000 linear"
             />
           </svg>
-          <button onClick={onNewGame} className="absolute top-3 right-3 text-xs text-muted-foreground underline">New Game</button>
+          <span className={`absolute inset-0 flex items-center justify-center text-xl font-display font-bold ${isUrgent ? "text-destructive animate-countdown-pulse" : ""}`}>
             {timeLeft}
           </span>
         </div>
 
         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-2 shrink-0">
-          {timedOut && splashDismissed && !finished ? "⏰ Review & confirm selections" : "Tap words your team guesses"}
+          {timedOut && splashDismissed && !finished ? "⏰ Review & confirm selections" : allGuessed && !timedOut ? "🎉 All guessed! Confirm to continue" : "Tap words your team guesses"}
         </p>
 
         {/* Word list */}
@@ -146,7 +151,7 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
           <p className="text-center text-muted-foreground text-sm mb-2">
             <span className={isTeamA ? "text-team-a" : "text-team-b"}>{guessedCount}</span> / {words.length} guessed
           </p>
-          {timedOut && splashDismissed && !finished && (
+          {((timedOut && splashDismissed) || allGuessed) && !finished && (
             <button
               onClick={handleDone}
               className={`w-full py-3 rounded-lg font-display font-bold text-lg transition-all active:scale-95 shadow-lg ${
