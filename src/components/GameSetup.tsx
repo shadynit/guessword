@@ -43,6 +43,20 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
     teamAPlayers.filter((p) => p.trim()).length >= 2 &&
     teamBPlayers.filter((p) => p.trim()).length >= 2;
 
+  const toggleCategory = (cat: WordCategory) => {
+    setSelectedCategories((prev) => {
+      if (cat === "all") return ["all"];
+      const without = prev.filter((c) => c !== "all");
+      if (without.includes(cat)) {
+        const result = without.filter((c) => c !== cat);
+        return result.length === 0 ? ["all"] : result;
+      }
+      return [...without, cat];
+    });
+  };
+
+  const adultMode = selectedCategories.includes("adult") || selectedCategories.includes("all");
+
   const handleStart = () => {
     const state: GameState = {
       ...DEFAULT_GAME_STATE,
@@ -62,6 +76,7 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
       wordsPerTurn,
       totalRounds,
       adultMode,
+      selectedCategories,
       phase: "ready",
     };
     onStartGame(state);
