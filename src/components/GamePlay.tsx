@@ -114,24 +114,6 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
           <button onClick={() => setShowNewGameConfirm(true)} className="text-xs text-muted-foreground underline">New Game</button>
         </div>
 
-        {/* Timer */}
-        <div className="relative w-20 h-20 mx-auto mb-2 shrink-0">
-          <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-            <circle cx="60" cy="60" r="54" fill="none" stroke="hsl(var(--muted))" strokeWidth="8" />
-            <circle
-              cx="60" cy="60" r="54" fill="none"
-              stroke={isUrgent ? "hsl(var(--destructive))" : isTeamA ? "hsl(var(--team-a))" : "hsl(var(--team-b))"}
-              strokeWidth="8" strokeLinecap="round"
-              strokeDasharray={circumference}
-              strokeDashoffset={circumference * (1 - progress)}
-              className="transition-all duration-1000 linear"
-            />
-          </svg>
-          <span className={`absolute inset-0 flex items-center justify-center text-xl font-display font-bold ${isUrgent ? "text-destructive animate-countdown-pulse" : ""}`}>
-            {timeLeft}
-          </span>
-        </div>
-
         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-2 shrink-0">
           {timedOut && splashDismissed && !finished ? "⏰ Review & confirm selections" : allGuessed && !timedOut ? "🎉 All guessed! Confirm to continue" : "Tap words your team guesses"}
         </p>
@@ -157,11 +139,31 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
           ))}
         </div>
 
-        {/* Score + Done */}
-        <div className="w-full mt-2 shrink-0">
-          <p className="text-center text-muted-foreground text-sm mb-2">
+        {/* Timer - below words for better focus */}
+        <div className="flex items-center gap-3 mt-2 shrink-0">
+          <div className="relative w-14 h-14">
+            <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="hsl(var(--muted))" strokeWidth="8" />
+              <circle
+                cx="60" cy="60" r="54" fill="none"
+                stroke={isUrgent ? "hsl(var(--destructive))" : isTeamA ? "hsl(var(--team-a))" : "hsl(var(--team-b))"}
+                strokeWidth="8" strokeLinecap="round"
+                strokeDasharray={circumference}
+                strokeDashoffset={circumference * (1 - progress)}
+                className="transition-all duration-1000 linear"
+              />
+            </svg>
+            <span className={`absolute inset-0 flex items-center justify-center text-base font-display font-bold ${isUrgent ? "text-destructive animate-countdown-pulse" : ""}`}>
+              {timeLeft}
+            </span>
+          </div>
+          <p className="text-muted-foreground text-sm">
             <span className={isTeamA ? "text-team-a" : "text-team-b"}>{guessedCount}</span> / {words.length} guessed
           </p>
+        </div>
+
+        {/* Done */}
+        <div className="w-full mt-1 shrink-0">
           {((timedOut && splashDismissed) || allGuessed) && !finished && (
             <button
               onClick={handleDone}
