@@ -1,5 +1,5 @@
 import { GameState } from "@/lib/gameTypes";
-import { Crown, RotateCcw } from "lucide-react";
+import { Crown, RotateCcw, Trophy } from "lucide-react";
 
 interface GameOverScreenProps {
   game: GameState;
@@ -11,9 +11,14 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
   const winner = teamA.score > teamB.score ? 0 : teamB.score > teamA.score ? 1 : -1;
   const isTie = winner === -1;
 
+  // Sort teams: winner first
+  const sortedTeams = [...game.teams]
+    .map((team, idx) => ({ team, originalIndex: idx }))
+    .sort((a, b) => b.team.score - a.team.score);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="text-center animate-slide-up-fade max-w-md">
+      <div className="text-center animate-slide-up-fade max-w-md w-full">
         {/* Crown */}
         <div className="relative mb-6">
           <Crown className="w-16 h-16 mx-auto text-accent" />
@@ -25,30 +30,65 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
         <h1 className="text-4xl sm:text-5xl font-bold mb-2 text-glow-accent">
           {isTie ? "It's a Tie!" : `${game.teams[winner as number].name} Wins!`}
         </h1>
-        <p className="text-muted-foreground mb-10 text-lg">
+        <p className="text-muted-foreground mb-3 text-lg">
           {isTie ? "What a match! Play again to break the tie." : "What a game! Congratulations! 🎉"}
         </p>
+        <p className="text-sm text-muted-foreground mb-8">
+          {game.totalRounds} {game.totalRounds === 1 ? "round" : "rounds"} played
+        </p>
 
-        {/* Final Scores */}
-        <div className="flex gap-4 justify-center mb-10">
-          <div className={`rounded-xl px-6 py-6 flex-1 border transition-all ${
-            winner === 0
-              ? "bg-team-a/15 border-team-a/40 card-glow-team-a scale-105"
-              : "bg-card border-border"
-          }`}>
-            {winner === 0 && <Crown className="w-6 h-6 text-accent mx-auto mb-2" />}
-            <p className="text-sm text-muted-foreground">{teamA.name}</p>
-            <p className="text-4xl font-bold text-team-a">{teamA.score}</p>
-          </div>
-          <div className={`rounded-xl px-6 py-6 flex-1 border transition-all ${
-            winner === 1
-              ? "bg-team-b/15 border-team-b/40 card-glow-team-b scale-105"
-              : "bg-card border-border"
-          }`}>
-            {winner === 1 && <Crown className="w-6 h-6 text-accent mx-auto mb-2" />}
-            <p className="text-sm text-muted-foreground">{teamB.name}</p>
-            <p className="text-4xl font-bold text-team-b">{teamB.score}</p>
-          </div>
+        {/* Leaderboard */}
+        <div className="flex flex-col gap-4 mb-10">
+          {sortedTeams.map(({ team, originalIndex }, rank) => {
+            const isWinner = !isTie && rank === 0;
+            const isA = originalIndex === 0;
+            return (
+              <div
+                key={originalIndex}
+                className={`rounded-xl px-6 py-5 border transition-all ${
+                  isWinner
+                    ? isA
+                      ? "bg-team-a/15 border-team-a/40 card-glow-team-a scale-[1.03]"
+                      : "bg-team-b/15 border-team-b/40 card-glow-team-b scale-[1.03]"
+                    : "bg-card border-border"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className={`text-2xl font-bold ${
+                      rank === 0 ? "text-accent" : "text-muted-foreground"
+                    }`}>
+                      {rank === 0 ? <Trophy className="w-6 h-6" /> : `#${rank + 1}`}
+                    </span>
+                    <div className="text-left">
+                      <p className={`font-display font-semibold ${isA ? "text-team-a" : "text-team-b"}`}>
+                        {team.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {team.players.length} players
+                      </p>
+                    </div>
+                  </div>
+                  <p className={`text-4xl font-bold ${isA ? "text-team-a" : "text-team-b"}`}>
+                    {team.score}
+                  </p>
+                </div>
+                {/* Score bar */}
+                <div className="mt-3 h-2 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all duration-700 ${
+                      isA ? "bg-team-a" : "bg-team-b"
+                    }`}
+                    style={{
+                      width: `${Math.max(sortedTeams[0].team.score, 1) > 0
+                        ? (team.score / Math.max(sortedTeams[0].team.score, 1)) * 100
+                        : 0}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <button

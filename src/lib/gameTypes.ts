@@ -8,6 +8,25 @@ export interface Team {
   score: number;
 }
 
+export type WordCategory = "all" | "funny" | "animals" | "food" | "actions" | "objects" | "body" | "characters" | "clothing" | "sounds" | "situations" | "exclamations" | "random" | "adult";
+
+export const CATEGORY_LABELS: Record<WordCategory, string> = {
+  all: "All Categories",
+  funny: "Funny & Silly",
+  animals: "Animals",
+  food: "Food & Drinks",
+  actions: "Actions",
+  objects: "Objects",
+  body: "Body Related",
+  characters: "Characters",
+  clothing: "Clothing",
+  sounds: "Sounds",
+  situations: "Situations",
+  exclamations: "Exclamations",
+  random: "Random Hilarious",
+  adult: "🔥 Adult 18+",
+};
+
 export interface GameState {
   teams: [Team, Team];
   currentTeamIndex: 0 | 1;
@@ -18,6 +37,7 @@ export interface GameState {
   currentRound: number;
   phase: "setup" | "ready" | "playing" | "turnEnd" | "gameOver";
   adultMode: boolean;
+  selectedCategories: WordCategory[];
 }
 
 export const DEFAULT_GAME_STATE: GameState = {
@@ -33,4 +53,5 @@ export const DEFAULT_GAME_STATE: GameState = {
   currentRound: 1,
   phase: "setup",
   adultMode: false,
+  selectedCategories: ["all"],
 };
