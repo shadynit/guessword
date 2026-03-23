@@ -43,13 +43,26 @@ export default function ReadyScreen({ game, onStart }: ReadyScreenProps) {
           </div>
         </div>
 
+        {/* Round progress */}
+        <div className="mb-4">
+          <p className="text-xs text-muted-foreground mb-1.5 uppercase tracking-widest">
+            Round {game.currentRound} of {game.totalRounds}
+          </p>
+          <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+            <div
+              className="h-full bg-primary rounded-full transition-all duration-500"
+              style={{ width: `${(game.currentRound / game.totalRounds) * 100}%` }}
+            />
+          </div>
+        </div>
+
         {/* Scores */}
         <div className="flex gap-4 justify-center mb-8">
-          <div className={`rounded-md px-4 py-2 ${isTeamA ? "bg-team-a/20 border border-team-a/30" : "bg-muted"}`}>
+          <div className={`rounded-md px-4 py-2 flex-1 ${isTeamA ? "bg-team-a/20 border border-team-a/30" : "bg-muted"}`}>
             <p className="text-xs text-muted-foreground">{game.teams[0].name}</p>
             <p className="text-2xl font-bold text-team-a">{game.teams[0].score}</p>
           </div>
-          <div className={`rounded-md px-4 py-2 ${!isTeamA ? "bg-team-b/20 border border-team-b/30" : "bg-muted"}`}>
+          <div className={`rounded-md px-4 py-2 flex-1 ${!isTeamA ? "bg-team-b/20 border border-team-b/30" : "bg-muted"}`}>
             <p className="text-xs text-muted-foreground">{game.teams[1].name}</p>
             <p className="text-2xl font-bold text-team-b">{game.teams[1].score}</p>
           </div>

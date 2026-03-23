@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { GameState } from "@/lib/gameTypes";
 import { Trophy } from "lucide-react";
 
@@ -11,20 +12,49 @@ export default function TurnEndScreen({ game, lastScore, onNext }: TurnEndScreen
   const team = game.teams[game.currentTeamIndex];
   const player = team.players[game.currentPlayerIndex];
   const isTeamA = game.currentTeamIndex === 0;
+  const [showScorePop, setShowScorePop] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowScorePop(false), 1200);
+    return () => clearTimeout(t);
+  }, []);
+
+  const roundProgress = (game.currentRound / game.totalRounds) * 100;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="text-center animate-slide-up-fade max-w-md">
-        <div className={`w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center ${
+      <div className="text-center animate-slide-up-fade max-w-md w-full">
+        <div className={`w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center relative ${
           isTeamA ? "bg-team-a/20" : "bg-team-b/20"
         }`}>
           <Trophy className={`w-10 h-10 ${isTeamA ? "text-team-a" : "text-team-b"}`} />
+          {/* Score pop animation */}
+          {showScorePop && lastScore > 0 && (
+            <span className={`absolute text-5xl font-display font-bold animate-score-pop ${
+              isTeamA ? "text-team-a" : "text-team-b"
+            }`}>
+              +{lastScore}
+            </span>
+          )}
         </div>
 
         <h2 className="text-3xl font-bold mb-2">Time's Up!</h2>
-        <p className="text-muted-foreground mb-6">
+        <p className="text-muted-foreground mb-4">
           {player.name} got <span className={`font-bold text-2xl ${isTeamA ? "text-team-a" : "text-team-b"}`}>{lastScore}</span> word{lastScore !== 1 ? "s" : ""} right
         </p>
+
+        {/* Round progress */}
+        <div className="mb-6">
+          <p className="text-xs text-muted-foreground mb-1.5 uppercase tracking-widest">
+            Round {game.currentRound} of {game.totalRounds}
+          </p>
+          <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+            <div
+              className="h-full bg-primary rounded-full transition-all duration-500"
+              style={{ width: `${roundProgress}%` }}
+            />
+          </div>
+        </div>
 
         {/* Scores */}
         <div className="flex gap-4 justify-center mb-8">

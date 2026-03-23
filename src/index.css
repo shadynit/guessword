@@ -6,6 +6,54 @@
 
 @layer base {
   :root {
+    --background: 40 30% 96%;
+    --foreground: 228 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 228 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 25% 15%;
+
+    --primary: 16 90% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 258 65% 58%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 228 15% 90%;
+    --muted-foreground: 228 15% 45%;
+
+    --accent: 48 96% 58%;
+    --accent-foreground: 228 25% 12%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 228 15% 85%;
+    --input: 228 15% 85%;
+    --ring: 16 90% 58%;
+
+    --radius: 1rem;
+
+    --team-a: 174 72% 38%;
+    --team-a-foreground: 0 0% 100%;
+    --team-b: 330 72% 50%;
+    --team-b-foreground: 0 0% 100%;
+
+    --success: 142 60% 48%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 228 25% 15%;
+    --sidebar-primary: 16 90% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 228 15% 90%;
+    --sidebar-accent-foreground: 228 25% 15%;
+    --sidebar-border: 228 15% 85%;
+    --sidebar-ring: 16 90% 58%;
+  }
+
+  .dark {
     --background: 228 25% 12%;
     --foreground: 45 100% 97%;
 
@@ -33,8 +81,6 @@
     --border: 228 18% 24%;
     --input: 228 18% 24%;
     --ring: 16 90% 58%;
-
-    --radius: 1rem;
 
     --team-a: 174 72% 46%;
     --team-a-foreground: 174 72% 10%;

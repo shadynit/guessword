@@ -101,6 +101,11 @@ export default {
           "0%": { transform: "translateY(16px)", opacity: "0", filter: "blur(4px)" },
           "100%": { transform: "translateY(0)", opacity: "1", filter: "blur(0)" },
         },
+        "score-pop": {
+          "0%": { transform: "scale(0.5) translateY(0)", opacity: "0" },
+          "40%": { transform: "scale(1.4) translateY(-20px)", opacity: "1" },
+          "100%": { transform: "scale(1) translateY(-40px)", opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -109,6 +114,7 @@ export default {
         "word-reveal": "word-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
         "countdown-pulse": "countdown-pulse 1s ease-in-out infinite",
         "slide-up-fade": "slide-up-fade 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        "score-pop": "score-pop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
     },
   },
