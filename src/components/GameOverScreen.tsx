@@ -11,7 +11,6 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
   const winner = teamA.score > teamB.score ? 0 : teamB.score > teamA.score ? 1 : -1;
   const isTie = winner === -1;
 
-  // Sort teams: winner first
   const sortedTeams = [...game.teams]
     .map((team, idx) => ({ team, originalIndex: idx }))
     .sort((a, b) => b.team.score - a.team.score);
@@ -30,11 +29,8 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
         <h1 className="text-4xl sm:text-5xl font-bold mb-2 text-glow-accent">
           {isTie ? "It's a Tie!" : `${game.teams[winner as number].name} Wins!`}
         </h1>
-        <p className="text-muted-foreground mb-3 text-lg">
+        <p className="text-muted-foreground mb-8 text-lg">
           {isTie ? "What a match! Play again to break the tie." : "What a game! Congratulations! 🎉"}
-        </p>
-        <p className="text-sm text-muted-foreground mb-8">
-          {game.totalRounds} {game.totalRounds === 1 ? "round" : "rounds"} played
         </p>
 
         {/* Leaderboard */}
@@ -56,16 +52,16 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className={`text-2xl font-bold ${
-                      rank === 0 ? "text-accent" : "text-muted-foreground"
+                      isWinner ? "text-accent" : "text-muted-foreground"
                     }`}>
-                      {rank === 0 ? <Trophy className="w-6 h-6" /> : `#${rank + 1}`}
+                      {isWinner ? <Trophy className="w-6 h-6" /> : `#${rank + 1}`}
                     </span>
                     <div className="text-left">
                       <p className={`font-display font-semibold ${isA ? "text-team-a" : "text-team-b"}`}>
                         {team.name}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {team.players.length} players
+                        {team.roundsPlayed} rounds played · {team.players.length} players
                       </p>
                     </div>
                   </div>
@@ -96,7 +92,7 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
           className="w-full py-4 rounded-lg bg-primary text-primary-foreground font-display font-bold text-lg transition-all active:scale-[0.97] shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
         >
           <RotateCcw className="w-5 h-5" />
-          Play Again
+          New Game
         </button>
       </div>
     </div>

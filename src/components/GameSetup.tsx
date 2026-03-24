@@ -45,7 +45,24 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
 
   const toggleCategory = (cat: WordCategory) => {
     setSelectedCategories((prev) => {
-      if (cat === "all") return ["all"];
+      if (cat === "all") {
+        // Toggle "all" but keep "adult" if it was selected
+        const hadAdult = prev.includes("adult");
+        if (prev.includes("all")) {
+          // Deselecting "all" — keep adult if present, else fallback
+          return hadAdult ? ["adult"] : ["all"];
+        }
+        return hadAdult ? ["all", "adult"] : ["all"];
+      }
+      if (cat === "adult") {
+        // Adult can be toggled independently alongside "all" or custom
+        if (prev.includes("adult")) {
+          const result = prev.filter((c) => c !== "adult");
+          return result.length === 0 ? ["all"] : result;
+        }
+        return [...prev, "adult"];
+      }
+      // Regular category — remove "all" but keep "adult"
       const without = prev.filter((c) => c !== "all");
       if (without.includes(cat)) {
         const result = without.filter((c) => c !== cat);
@@ -65,11 +82,13 @@ export default function GameSetup({ onStartGame }: GameSetupProps) {
           name: teamAName || "Team Alpha",
           players: teamAPlayers.filter((p) => p.trim()).map((p) => ({ name: p.trim() })),
           score: 0,
+          roundsPlayed: 0,
         },
         {
           name: teamBName || "Team Beta",
           players: teamBPlayers.filter((p) => p.trim()).map((p) => ({ name: p.trim() })),
           score: 0,
+          roundsPlayed: 0,
         },
       ],
       roundTime,

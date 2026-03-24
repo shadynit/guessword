@@ -6,6 +6,7 @@ export interface Team {
   name: string;
   players: Player[];
   score: number;
+  roundsPlayed: number;
 }
 
 export type WordCategory = "all" | "funny" | "animals" | "food" | "actions" | "objects" | "body" | "characters" | "clothing" | "sounds" | "situations" | "exclamations" | "random" | "adult";
@@ -42,8 +43,8 @@ export interface GameState {
 
 export const DEFAULT_GAME_STATE: GameState = {
   teams: [
-    { name: "Team Alpha", players: [], score: 0 },
-    { name: "Team Beta", players: [], score: 0 },
+    { name: "Team Alpha", players: [], score: 0, roundsPlayed: 0 },
+    { name: "Team Beta", players: [], score: 0, roundsPlayed: 0 },
   ],
   currentTeamIndex: 0,
   currentPlayerIndex: 0,

@@ -2,16 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { getRandomWord } from "@/lib/words";
 import { playBuzzer } from "@/lib/buzzer";
 import { GameState } from "@/lib/gameTypes";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
 interface GamePlayProps {
   game: GameState;
@@ -24,7 +14,7 @@ interface WordItem {
   guessed: boolean;
 }
 
-export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) {
+export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
   const [timeLeft, setTimeLeft] = useState<number>(game.roundTime);
   const [words, setWords] = useState<WordItem[]>(() =>
     Array.from({ length: game.wordsPerTurn }, () => ({
@@ -34,9 +24,9 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
   );
   const [finished, setFinished] = useState(false);
   const [splashDismissed, setSplashDismissed] = useState(false);
-  const [showNewGameConfirm, setShowNewGameConfirm] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
   const isTeamA = game.currentTeamIndex === 0;
+  const team = game.teams[game.currentTeamIndex];
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -109,9 +99,11 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
       )}
 
       <div className="w-full max-w-sm flex flex-col items-center flex-1 min-h-0">
-        {/* New Game button */}
-        <div className="w-full flex justify-end mb-1 shrink-0">
-          <button onClick={() => setShowNewGameConfirm(true)} className="text-xs text-muted-foreground underline">New Game</button>
+        {/* Team name badge */}
+        <div className={`px-3 py-1 rounded-full text-xs font-display font-semibold mb-2 shrink-0 ${
+          isTeamA ? "bg-team-a/20 text-team-a" : "bg-team-b/20 text-team-b"
+        }`}>
+          {team.name}
         </div>
 
         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-2 shrink-0">
@@ -139,7 +131,7 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
           ))}
         </div>
 
-        {/* Timer - below words for better focus */}
+        {/* Timer - below words */}
         <div className="flex items-center gap-3 mt-2 shrink-0">
           <div className="relative w-14 h-14">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
@@ -178,21 +170,6 @@ export default function GamePlay({ game, onTurnEnd, onNewGame }: GamePlayProps) 
           )}
         </div>
       </div>
-
-      <AlertDialog open={showNewGameConfirm} onOpenChange={setShowNewGameConfirm}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Start a New Game?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will reset all scores and progress. Are you sure you want to start over?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={onNewGame}>Yes, Reset</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 }

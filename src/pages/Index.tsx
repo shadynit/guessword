@@ -14,7 +14,6 @@ const loadGameState = (): GameState => {
     const saved = sessionStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved) as GameState;
-      // If was in "playing" phase, go back to "ready" (timer can't resume)
       if (parsed.phase === "playing") {
         return { ...parsed, phase: "ready" };
       }
@@ -40,7 +39,6 @@ const Index = () => {
   const [game, setGame] = useState<GameState>(loadGameState);
   const [lastScore, setLastScore] = useState(0);
 
-  // Persist game state on every change
   useEffect(() => {
     if (game.phase === "setup") {
       clearGameState();
@@ -65,10 +63,19 @@ const Index = () => {
       newTeams[g.currentTeamIndex] = {
         ...newTeams[g.currentTeamIndex],
         score: newTeams[g.currentTeamIndex].score + wordsGuessed,
+        roundsPlayed: newTeams[g.currentTeamIndex].roundsPlayed + 1,
       };
       return { ...g, teams: newTeams, phase: "turnEnd" };
     });
   }, []);
+
+  const isLastTurn = (() => {
+    if (game.phase !== "turnEnd") return false;
+    const nextTeamIndex = game.currentTeamIndex === 0 ? 1 : 0;
+    const isRoundComplete = nextTeamIndex === 0;
+    const nextRound = isRoundComplete ? game.currentRound + 1 : game.currentRound;
+    return isRoundComplete && nextRound > game.totalRounds;
+  })();
 
   const handleNextTurn = () => {
     setGame((g) => {
@@ -108,7 +115,7 @@ const Index = () => {
     case "playing":
       return <GamePlay key={`${game.currentTeamIndex}-${game.currentPlayerIndex}-${game.currentRound}`} game={game} onTurnEnd={handleTurnEnd} onNewGame={handlePlayAgain} />;
     case "turnEnd":
-      return <TurnEndScreen game={game} lastScore={lastScore} onNext={handleNextTurn} />;
+      return <TurnEndScreen game={game} lastScore={lastScore} onNext={handleNextTurn} isLastTurn={isLastTurn} />;
     case "gameOver":
       return <GameOverScreen game={game} onPlayAgain={handlePlayAgain} />;
     default:
