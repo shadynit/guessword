@@ -60,10 +60,15 @@ const Index = () => {
     setLastScore(wordsGuessed);
     setGame((g) => {
       const newTeams = [...g.teams] as [typeof g.teams[0], typeof g.teams[1]];
+      const team = newTeams[g.currentTeamIndex];
+      const updatedPlayers = team.players.map((p, i) =>
+        i === g.currentPlayerIndex ? { ...p, score: p.score + wordsGuessed } : p
+      );
       newTeams[g.currentTeamIndex] = {
-        ...newTeams[g.currentTeamIndex],
-        score: newTeams[g.currentTeamIndex].score + wordsGuessed,
-        roundsPlayed: newTeams[g.currentTeamIndex].roundsPlayed + 1,
+        ...team,
+        players: updatedPlayers,
+        score: team.score + wordsGuessed,
+        roundsPlayed: team.roundsPlayed + 1,
       };
       return { ...g, teams: newTeams, phase: "turnEnd" };
     });

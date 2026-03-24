@@ -27,6 +27,7 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
   const timerRef = useRef<ReturnType<typeof setInterval>>();
   const isTeamA = game.currentTeamIndex === 0;
   const team = game.teams[game.currentTeamIndex];
+  const player = team.players[game.currentPlayerIndex];
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -99,11 +100,17 @@ export default function GamePlay({ game, onTurnEnd }: GamePlayProps) {
       )}
 
       <div className="w-full max-w-sm flex flex-col items-center flex-1 min-h-0">
-        {/* Team name badge */}
-        <div className={`px-3 py-1 rounded-full text-xs font-display font-semibold mb-2 shrink-0 ${
+        {/* Team + player badge */}
+        <div className={`px-3 py-1 rounded-full text-xs font-display font-semibold mb-2 shrink-0 flex items-center gap-1.5 ${
           isTeamA ? "bg-team-a/20 text-team-a" : "bg-team-b/20 text-team-b"
         }`}>
           {team.name}
+          {player && (
+            <>
+              <span className="opacity-40">·</span>
+              <span>{player.name}</span>
+            </>
+          )}
         </div>
 
         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-2 shrink-0">

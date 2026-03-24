@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import { GameState } from "@/lib/gameTypes";
 import { Trophy, RotateCcw } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface TurnEndScreenProps {
   game: GameState;
@@ -15,6 +25,7 @@ export default function TurnEndScreen({ game, lastScore, onNext, isLastTurn, onN
   const player = team.players[game.currentPlayerIndex];
   const isTeamA = game.currentTeamIndex === 0;
   const [showScorePop, setShowScorePop] = useState(true);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setShowScorePop(false), 1200);
@@ -77,13 +88,28 @@ export default function TurnEndScreen({ game, lastScore, onNext, isLastTurn, onN
         </button>
 
         <button
-          onClick={onNewGame}
+          onClick={() => setConfirmOpen(true)}
           className="mt-4 flex items-center justify-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mx-auto"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           New Game
         </button>
       </div>
+
+      <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Start a new game?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will reset all scores and progress. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={onNewGame}>New Game</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

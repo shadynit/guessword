@@ -1,5 +1,16 @@
+import { useState } from "react";
 import { GameState } from "@/lib/gameTypes";
-import { Crown, RotateCcw, Trophy } from "lucide-react";
+import { Crown, RotateCcw, Trophy, Medal } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface GameOverScreenProps {
   game: GameState;
@@ -7,6 +18,7 @@ interface GameOverScreenProps {
 }
 
 export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProps) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [teamA, teamB] = game.teams;
   const winner = teamA.score > teamB.score ? 0 : teamB.score > teamA.score ? 1 : -1;
   const isTie = winner === -1;
@@ -15,8 +27,20 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
     .map((team, idx) => ({ team, originalIndex: idx }))
     .sort((a, b) => b.team.score - a.team.score);
 
+  // All players across both teams, sorted by individual score
+  const allPlayers = game.teams.flatMap((team, teamIdx) =>
+    team.players.map((player) => ({ player, team, teamIdx }))
+  ).sort((a, b) => b.player.score - a.player.score);
+
+  const rankIcon = (rank: number) => {
+    if (rank === 0) return <Crown className="w-4 h-4 text-yellow-400" />;
+    if (rank === 1) return <Medal className="w-4 h-4 text-slate-400" />;
+    if (rank === 2) return <Medal className="w-4 h-4 text-amber-600" />;
+    return <span className="text-xs text-muted-foreground font-bold w-4 text-center">#{rank + 1}</span>;
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8">
       <div className="text-center animate-slide-up-fade max-w-md w-full">
         {/* Crown */}
         <div className="relative mb-6">
@@ -33,12 +57,11 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
           {isTie ? "What a match! Play again to break the tie." : "What a game! Congratulations! 🎉"}
         </p>
 
-        {/* Leaderboard */}
-        <div className="flex flex-col gap-4 mb-10">
+        {/* Team Leaderboard */}
+        <div className="flex flex-col gap-4 mb-6">
           {sortedTeams.map(({ team, originalIndex }, rank) => {
             const isWinner = !isTie && rank === 0;
             const isA = originalIndex === 0;
-            const topPlayers = team.players.slice(0, 3);
             return (
               <div
                 key={originalIndex}
@@ -62,7 +85,7 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
                         {team.name}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {team.roundsPlayed} rounds played · {team.players.length} players
+                        {team.roundsPlayed} rounds · {team.players.length} players
                       </p>
                     </div>
                   </div>
@@ -83,39 +106,73 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
                     }}
                   />
                 </div>
-                {/* Top 3 players */}
-                {topPlayers.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {topPlayers.map((p, i) => (
-                      <span
-                        key={i}
-                        className={`text-xs px-2 py-0.5 rounded-full ${
-                          isA ? "bg-team-a/10 text-team-a" : "bg-team-b/10 text-team-b"
-                        }`}
-                      >
-                        {p.name}
-                      </span>
-                    ))}
-                    {team.players.length > 3 && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                        +{team.players.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                )}
               </div>
             );
           })}
         </div>
 
+        {/* Player Rankings */}
+        {allPlayers.length > 0 && (
+          <div className="mb-8">
+            <h3 className="text-sm font-display font-semibold text-muted-foreground uppercase tracking-widest mb-3">
+              Player Rankings
+            </h3>
+            <div className="flex flex-col gap-2">
+              {allPlayers.map(({ player, team, teamIdx }, rank) => {
+                const isA = teamIdx === 0;
+                return (
+                  <div
+                    key={`${teamIdx}-${player.name}`}
+                    className={`flex items-center justify-between rounded-lg px-4 py-2.5 border ${
+                      rank === 0
+                        ? isA
+                          ? "bg-team-a/10 border-team-a/30"
+                          : "bg-team-b/10 border-team-b/30"
+                        : "bg-card border-border"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex items-center justify-center w-5">
+                        {rankIcon(rank)}
+                      </span>
+                      <div className="text-left">
+                        <p className="text-sm font-semibold">{player.name}</p>
+                        <p className={`text-xs ${isA ? "text-team-a" : "text-team-b"}`}>{team.name}</p>
+                      </div>
+                    </div>
+                    <p className={`text-lg font-bold ${isA ? "text-team-a" : "text-team-b"}`}>
+                      {player.score} <span className="text-xs font-normal text-muted-foreground">pts</span>
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <button
-          onClick={onPlayAgain}
+          onClick={() => setConfirmOpen(true)}
           className="w-full py-4 rounded-lg bg-primary text-primary-foreground font-display font-bold text-lg transition-all active:scale-[0.97] shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
         >
           <RotateCcw className="w-5 h-5" />
           New Game
         </button>
       </div>
+
+      <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Start a new game?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will reset all scores and progress. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={onPlayAgain}>New Game</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
