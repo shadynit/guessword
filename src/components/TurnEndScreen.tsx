@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { GameState } from "@/lib/gameTypes";
-import { Trophy } from "lucide-react";
+import { Trophy, RotateCcw } from "lucide-react";
 
 interface TurnEndScreenProps {
   game: GameState;
   lastScore: number;
   onNext: () => void;
   isLastTurn: boolean;
+  onNewGame: () => void;
 }
 
 export default function TurnEndScreen({ game, lastScore, onNext, isLastTurn }: TurnEndScreenProps) {
