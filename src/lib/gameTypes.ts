@@ -6,6 +6,7 @@ export interface Team {
   name: string;
   players: Player[];
   score: number;
+  roundsPlayed: number;
 }
 
 export type WordCategory = "all" | "funny" | "animals" | "food" | "actions" | "objects" | "body" | "characters" | "clothing" | "sounds" | "situations" | "exclamations" | "random" | "adult";
