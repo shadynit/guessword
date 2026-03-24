@@ -1,12 +1,13 @@
 import { GameState } from "@/lib/gameTypes";
-import { Eye, EyeOff, BookOpen } from "lucide-react";
+import { Eye, EyeOff, RotateCcw } from "lucide-react";
 
 interface ReadyScreenProps {
   game: GameState;
   onStart: () => void;
+  onNewGame: () => void;
 }
 
-export default function ReadyScreen({ game, onStart }: ReadyScreenProps) {
+export default function ReadyScreen({ game, onStart, onNewGame }: ReadyScreenProps) {
   const team = game.teams[game.currentTeamIndex];
   const player = team.players[game.currentPlayerIndex];
   const isTeamA = game.currentTeamIndex === 0;
@@ -77,6 +78,14 @@ export default function ReadyScreen({ game, onStart }: ReadyScreenProps) {
           }`}
         >
           I'm Ready — Show the Word!
+        </button>
+
+        <button
+          onClick={onNewGame}
+          className="mt-4 flex items-center justify-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mx-auto"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          New Game
         </button>
       </div>
     </div>

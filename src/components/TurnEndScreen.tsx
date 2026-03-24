@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { GameState } from "@/lib/gameTypes";
-import { Trophy } from "lucide-react";
+import { Trophy, RotateCcw } from "lucide-react";
 
 interface TurnEndScreenProps {
   game: GameState;
   lastScore: number;
   onNext: () => void;
   isLastTurn: boolean;
+  onNewGame: () => void;
 }
 
-export default function TurnEndScreen({ game, lastScore, onNext, isLastTurn }: TurnEndScreenProps) {
+export default function TurnEndScreen({ game, lastScore, onNext, isLastTurn, onNewGame }: TurnEndScreenProps) {
   const team = game.teams[game.currentTeamIndex];
   const player = team.players[game.currentPlayerIndex];
   const isTeamA = game.currentTeamIndex === 0;
@@ -73,6 +74,14 @@ export default function TurnEndScreen({ game, lastScore, onNext, isLastTurn }: T
           className="w-full py-4 rounded-lg bg-primary text-primary-foreground font-display font-bold text-lg transition-all active:scale-[0.97] shadow-lg shadow-primary/30"
         >
           {isLastTurn ? "🏆 Show Winner" : "Next Turn"}
+        </button>
+
+        <button
+          onClick={onNewGame}
+          className="mt-4 flex items-center justify-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mx-auto"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          New Game
         </button>
       </div>
     </div>

@@ -38,6 +38,7 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
           {sortedTeams.map(({ team, originalIndex }, rank) => {
             const isWinner = !isTie && rank === 0;
             const isA = originalIndex === 0;
+            const topPlayers = team.players.slice(0, 3);
             return (
               <div
                 key={originalIndex}
@@ -82,6 +83,26 @@ export default function GameOverScreen({ game, onPlayAgain }: GameOverScreenProp
                     }}
                   />
                 </div>
+                {/* Top 3 players */}
+                {topPlayers.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {topPlayers.map((p, i) => (
+                      <span
+                        key={i}
+                        className={`text-xs px-2 py-0.5 rounded-full ${
+                          isA ? "bg-team-a/10 text-team-a" : "bg-team-b/10 text-team-b"
+                        }`}
+                      >
+                        {p.name}
+                      </span>
+                    ))}
+                    {team.players.length > 3 && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                        +{team.players.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
